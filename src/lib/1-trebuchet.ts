@@ -1,16 +1,44 @@
 // --- Day 1: Trebuchet?! ---
 
+const digitRe = /[0-9]|one|two|three|four|five|six|seven|eight|nine/g;
+
 export function getCalibrationValue(line: string): number {
-  const firstDigit = findFirstDigit(line.split(''));
-  const lastDigit = findFirstDigit(line.split('').reverse());
-  if (!firstDigit || !lastDigit) {
-    throw new Error('Calibration digits missing');
-  }
-  return parseInt(firstDigit + lastDigit);
+  return parseInt(findFirstMatch(line) + findLastMatch(line));
 }
 
-function findFirstDigit(characters: string[]) {
-  return characters.find(char =>
-    ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(char),
-  );
+function findFirstMatch(line: string) {
+  const matches = [...line.matchAll(digitRe)];
+  const firstMatch = matches.at(0);
+  if (!firstMatch) {
+    throw new Error('Cannot find first calibration digit');
+  }
+  return normaliseStringDigit(firstMatch[0]);
+}
+
+function findLastMatch(line: string) {
+  for (let i = line.length - 1; i >= 0; i--) {
+    const lineSuffix = line.slice(i);
+    const matches = [...lineSuffix.matchAll(digitRe)];
+    const lastMatch = matches.at(-1);
+    if (lastMatch) {
+      return normaliseStringDigit(lastMatch[0]);
+    }
+  }
+  throw new Error('Cannot find last calibration digit');
+}
+
+function normaliseStringDigit(digit: string): string {
+  const mapping: Record<string, string> = {
+    one: '1',
+    two: '2',
+    three: '3',
+    four: '4',
+    five: '5',
+    six: '6',
+    seven: '7',
+    eight: '8',
+    nine: '9',
+  };
+
+  return mapping[digit] ?? digit;
 }
