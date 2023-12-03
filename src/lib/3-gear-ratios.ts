@@ -10,7 +10,57 @@ interface SchematicNumber {
   len: number;
 }
 
+export function listGearRatios(schematic: string): number[] {
+  const parts = listParts(schematic);
+
+  const lines = schematic.split('\n');
+
+  const starPositions: Coords[] = lines.flatMap((line, y) =>
+    line
+      .split('')
+      .map((char, x) => ({ char, x }))
+      .filter(({ char }) => char === '*')
+      .map(({ x }) => ({ x, y })),
+  );
+
+  const gearRatios: number[] = [];
+
+  for (const starPosition of starPositions) {
+    const adjacentParts = parts.filter(({ x, y, len }) => {
+      for (
+        let positionInNumber = 0;
+        positionInNumber < len;
+        positionInNumber++
+      ) {
+        const position = { x: x + positionInNumber, y };
+        const isAdjacent =
+          Math.abs(position.x - starPosition.x) <= 1 &&
+          Math.abs(position.y - starPosition.y) <= 1;
+        if (isAdjacent) {
+          return true;
+        }
+      }
+      return false;
+    });
+
+    const isGear = adjacentParts.length === 2;
+    if (isGear) {
+      const ratio = adjacentParts.reduce(
+        (product, { num }) => product * num,
+        1,
+      );
+      gearRatios.push(ratio);
+    }
+  }
+
+  return gearRatios;
+}
+
 export function listPartNumbers(schematic: string): number[] {
+  return listParts(schematic).map(({ num }) => num);
+}
+
+function listParts(schematic: string): SchematicNumber[] {
   const lines = schematic.split('\n');
 
   const symbolPositions: Coords[] = lines.flatMap((line, y) =>
@@ -56,9 +106,7 @@ export function listPartNumbers(schematic: string): number[] {
     return numbers;
   });
 
-  return numbers
-    .filter(number => isPartNumber(number, symbolPositions))
-    .map(({ num }) => num);
+  return numbers.filter(number => isPartNumber(number, symbolPositions));
 }
 
 function isPartNumber(number: SchematicNumber, symbolPositions: Coords[]) {
