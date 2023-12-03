@@ -6,6 +6,7 @@ import {
   minimumSetOfCubes,
   parseGame,
 } from './lib/2-cube-conundrum.js';
+import { listPartNumbers } from './lib/3-gear-ratios.js';
 
 async function trebuchet() {
   const inputFile = await open('input/1-trebuchet.txt', 'r');
@@ -47,12 +48,24 @@ async function cubeConundrumMinimums() {
   console.log(sum);
 }
 
+async function partNumbers() {
+  const inputFile = await open('input/3-gear-ratios.txt');
+
+  const schematic = await inputFile.readFile('utf8');
+
+  const partNumbers = listPartNumbers(schematic);
+  const sumOfPartNumbers = partNumbers.reduce((sum, num) => sum + num);
+
+  console.log(sumOfPartNumbers);
+}
+
 const puzzleKey = process.argv[2];
 
 const puzzleMap: Record<string, () => Promise<void>> = {
   '1': trebuchet,
   '2.1': cubeConundrum,
   '2.2': cubeConundrumMinimums,
+  '3.1': partNumbers,
 };
 
 const puzzle = puzzleMap[puzzleKey];
