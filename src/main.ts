@@ -1,10 +1,16 @@
-/*
- * @Author: DM
- * @Date: 2022-01-14 13:06:54
- * @LastEditors: DM
- * @LastEditTime: 2022-01-14 13:32:20
- * @Descriptions:
- * @FilePath: /components/src/main.ts
- */
+import { open } from 'node:fs/promises';
+import { getCalibrationValue } from './lib/1-trebuchet.js';
 
-console.log('hello ya~');
+async function trebuchet() {
+  const inputFile = await open('input/1-trebuchet.txt', 'r');
+
+  let sum = 0;
+
+  for await (const line of inputFile.readLines()) {
+    sum += getCalibrationValue(line);
+  }
+
+  console.log(sum);
+}
+
+await trebuchet();
