@@ -7,6 +7,10 @@ import {
   parseGame,
 } from './lib/2-cube-conundrum.js';
 import { listGearRatios, listPartNumbers } from './lib/3-gear-ratios.js';
+import {
+  countScratchCardsAfterWinnings,
+  scoreScratchCard,
+} from './lib/4-scratchcards.js';
 
 async function trebuchet() {
   const inputFile = await open('input/1-trebuchet.txt', 'r');
@@ -70,6 +74,26 @@ async function gearRatios() {
   console.log(sum);
 }
 
+async function scratchCardScores() {
+  const inputFile = await open('input/4-scratchcards.txt');
+
+  let sum = 0;
+
+  for await (const line of inputFile.readLines()) {
+    sum += scoreScratchCard(line);
+  }
+
+  console.log(sum);
+}
+
+async function countScratchCards() {
+  const inputFile = await open('input/4-scratchcards.txt');
+  const cardsSerialised = await inputFile.readFile('utf8');
+  const cards = cardsSerialised.split('\n').filter(line => line !== '');
+
+  console.log(countScratchCardsAfterWinnings(cards));
+}
+
 const puzzleKey = process.argv[2];
 
 const puzzleMap: Record<string, () => Promise<void>> = {
@@ -78,6 +102,8 @@ const puzzleMap: Record<string, () => Promise<void>> = {
   '2.2': cubeConundrumMinimums,
   '3.1': partNumbers,
   '3.2': gearRatios,
+  '4.1': scratchCardScores,
+  '4.2': countScratchCards,
 };
 
 const puzzle = puzzleMap[puzzleKey];
