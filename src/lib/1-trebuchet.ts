@@ -1,4 +1,16 @@
-// --- Day 1: Trebuchet?! ---
+import { open } from 'node:fs/promises';
+
+export async function part2() {
+  const inputFile = await open('input/1-trebuchet.txt', 'r');
+
+  let sum = 0;
+
+  for await (const line of inputFile.readLines()) {
+    sum += getCalibrationValue(line);
+  }
+
+  console.log(sum);
+}
 
 const digitRe = /[0-9]|one|two|three|four|five|six|seven|eight|nine/g;
 

@@ -1,7 +1,37 @@
+import { open } from 'node:fs/promises';
+
 export interface SetOfCubes {
   red: number;
   green: number;
   blue: number;
+}
+
+export async function part1() {
+  const inputFile = await open('input/2-cube-conundrum.txt');
+
+  let sum = 0;
+
+  for await (const line of inputFile.readLines()) {
+    if (isPossible(line, { red: 12, green: 13, blue: 14 })) {
+      sum += gameId(line);
+    }
+  }
+
+  console.log(sum);
+}
+
+export async function part2() {
+  const inputFile = await open('input/2-cube-conundrum.txt');
+
+  let sum = 0;
+
+  for await (const line of inputFile.readLines()) {
+    const game = parseGame(line);
+    const minimumCubes = minimumSetOfCubes(game);
+    sum += minimumCubes.red * minimumCubes.green * minimumCubes.blue;
+  }
+
+  console.log(sum);
 }
 
 export function isPossible(serialisedGame: string, availableCubes: SetOfCubes) {

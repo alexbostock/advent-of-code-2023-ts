@@ -1,151 +1,33 @@
-import { open } from 'node:fs/promises';
-import { getCalibrationValue } from './lib/1-trebuchet.js';
+import { part2 as trebuchetPart2 } from './lib/1-trebuchet.js';
 import {
-  gameId,
-  isPossible,
-  minimumSetOfCubes,
-  parseGame,
+  part1 as cubeConundrumPart1,
+  part2 as cubeConundrumPart2,
 } from './lib/2-cube-conundrum.js';
-import { listGearRatios, listPartNumbers } from './lib/3-gear-ratios.js';
 import {
-  countScratchCardsAfterWinnings,
-  scoreScratchCard,
+  part1 as gearRatiosPart1,
+  part2 as gearRatiosPart2,
+} from './lib/3-gear-ratios.js';
+import {
+  part1 as scratchCardsPart1,
+  part2 as scratchCardsPart2,
 } from './lib/4-scratchcards.js';
 import {
-  applyAllMappings,
-  parseMapping,
-  parseSeedsList,
-  parseSeedsRanges,
+  part1 as seedFertiliserPart1,
+  part2 as seedFertiliserPart2,
 } from './lib/5-seed-fertiliser.js';
-
-async function trebuchet() {
-  const inputFile = await open('input/1-trebuchet.txt', 'r');
-
-  let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
-    sum += getCalibrationValue(line);
-  }
-
-  console.log(sum);
-}
-
-async function cubeConundrum() {
-  const inputFile = await open('input/2-cube-conundrum.txt');
-
-  let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
-    if (isPossible(line, { red: 12, green: 13, blue: 14 })) {
-      sum += gameId(line);
-    }
-  }
-
-  console.log(sum);
-}
-
-async function cubeConundrumMinimums() {
-  const inputFile = await open('input/2-cube-conundrum.txt');
-
-  let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
-    const game = parseGame(line);
-    const minimumCubes = minimumSetOfCubes(game);
-    sum += minimumCubes.red * minimumCubes.green * minimumCubes.blue;
-  }
-
-  console.log(sum);
-}
-
-async function partNumbers() {
-  const inputFile = await open('input/3-gear-ratios.txt');
-
-  const schematic = await inputFile.readFile('utf8');
-
-  const partNumbers = listPartNumbers(schematic);
-  const sumOfPartNumbers = partNumbers.reduce((sum, num) => sum + num);
-
-  console.log(sumOfPartNumbers);
-}
-
-async function gearRatios() {
-  const inputFile = await open('input/3-gear-ratios.txt');
-
-  const schematic = await inputFile.readFile('utf8');
-
-  const gearRatios = listGearRatios(schematic);
-  const sum = gearRatios.reduce((sum, num) => sum + num);
-
-  console.log(sum);
-}
-
-async function scratchCardScores() {
-  const inputFile = await open('input/4-scratchcards.txt');
-
-  let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
-    sum += scoreScratchCard(line);
-  }
-
-  console.log(sum);
-}
-
-async function countScratchCards() {
-  const inputFile = await open('input/4-scratchcards.txt');
-  const cardsSerialised = await inputFile.readFile('utf8');
-  const cards = cardsSerialised.split('\n').filter(line => line !== '');
-
-  console.log(countScratchCardsAfterWinnings(cards));
-}
-
-async function mapSeedLocations() {
-  const inputfile = await open('input/5-seed-fertiliser.txt');
-  const [seedsSerialised, ...mappingsSerialised] = (
-    await inputfile.readFile('utf8')
-  ).split('\n\n');
-  const seeds = parseSeedsList(seedsSerialised);
-  const mappings = mappingsSerialised.map(serialised =>
-    parseMapping(serialised),
-  );
-
-  let minLocation = Infinity;
-  for (const location of applyAllMappings(seeds, mappings)) {
-    minLocation = Math.min(location, minLocation);
-  }
-  console.log(minLocation);
-}
-
-async function mapSeedLocationsWithRanges() {
-  const inputFile = await open('input/5-seed-fertiliser.txt');
-  const [seedsSerialised, ...mappingsSerialised] = (
-    await inputFile.readFile('utf8')
-  ).split('\n\n');
-  const seeds = parseSeedsRanges(seedsSerialised);
-  const mappings = mappingsSerialised.map(serialised =>
-    parseMapping(serialised),
-  );
-
-  let minLocation = Infinity;
-  for (const location of applyAllMappings(seeds, mappings)) {
-    minLocation = Math.min(location, minLocation);
-  }
-  console.log(minLocation);
-}
 
 const puzzleKey = process.argv[2];
 
 const puzzleMap: Record<string, () => Promise<void>> = {
-  '1': trebuchet,
-  '2.1': cubeConundrum,
-  '2.2': cubeConundrumMinimums,
-  '3.1': partNumbers,
-  '3.2': gearRatios,
-  '4.1': scratchCardScores,
-  '4.2': countScratchCards,
-  '5.1': mapSeedLocations,
-  '5.2': mapSeedLocationsWithRanges,
+  '1': trebuchetPart2,
+  '2.1': cubeConundrumPart1,
+  '2.2': cubeConundrumPart2,
+  '3.1': gearRatiosPart1,
+  '3.2': gearRatiosPart2,
+  '4.1': scratchCardsPart1,
+  '4.2': scratchCardsPart2,
+  '5.1': seedFertiliserPart1,
+  '5.2': seedFertiliserPart2,
 };
 
 const puzzle = puzzleMap[puzzleKey];

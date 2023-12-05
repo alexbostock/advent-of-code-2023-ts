@@ -1,8 +1,44 @@
+import { open } from 'node:fs/promises';
+
 export type Mapping = {
   destinationRangeStart: number;
   sourceRangeStart: number;
   rangeLength: number;
 }[];
+
+export async function part1() {
+  const inputfile = await open('input/5-seed-fertiliser.txt');
+  const [seedsSerialised, ...mappingsSerialised] = (
+    await inputfile.readFile('utf8')
+  ).split('\n\n');
+  const seeds = parseSeedsList(seedsSerialised);
+  const mappings = mappingsSerialised.map(serialised =>
+    parseMapping(serialised),
+  );
+
+  let minLocation = Infinity;
+  for (const location of applyAllMappings(seeds, mappings)) {
+    minLocation = Math.min(location, minLocation);
+  }
+  console.log(minLocation);
+}
+
+export async function part2() {
+  const inputFile = await open('input/5-seed-fertiliser.txt');
+  const [seedsSerialised, ...mappingsSerialised] = (
+    await inputFile.readFile('utf8')
+  ).split('\n\n');
+  const seeds = parseSeedsRanges(seedsSerialised);
+  const mappings = mappingsSerialised.map(serialised =>
+    parseMapping(serialised),
+  );
+
+  let minLocation = Infinity;
+  for (const location of applyAllMappings(seeds, mappings)) {
+    minLocation = Math.min(location, minLocation);
+  }
+  console.log(minLocation);
+}
 
 export function* applyAllMappings(
   seeds: Iterable<number>,

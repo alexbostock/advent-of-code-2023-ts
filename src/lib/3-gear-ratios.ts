@@ -1,3 +1,5 @@
+import { open } from 'node:fs/promises';
+
 interface Coords {
   x: number;
   y: number;
@@ -8,6 +10,28 @@ interface SchematicNumber {
   x: number;
   y: number;
   len: number;
+}
+
+export async function part1() {
+  const inputFile = await open('input/3-gear-ratios.txt');
+
+  const schematic = await inputFile.readFile('utf8');
+
+  const partNumbers = listPartNumbers(schematic);
+  const sumOfPartNumbers = partNumbers.reduce((sum, num) => sum + num);
+
+  console.log(sumOfPartNumbers);
+}
+
+export async function part2() {
+  const inputFile = await open('input/3-gear-ratios.txt');
+
+  const schematic = await inputFile.readFile('utf8');
+
+  const gearRatios = listGearRatios(schematic);
+  const sum = gearRatios.reduce((sum, num) => sum + num);
+
+  console.log(sum);
 }
 
 export function listGearRatios(schematic: string): number[] {
