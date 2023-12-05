@@ -11,6 +11,12 @@ import {
   countScratchCardsAfterWinnings,
   scoreScratchCard,
 } from './lib/4-scratchcards.js';
+import {
+  applyAllMappings,
+  parseMapping,
+  parseSeedsList,
+  parseSeedsRanges,
+} from './lib/5-seed-fertiliser.js';
 
 async function trebuchet() {
   const inputFile = await open('input/1-trebuchet.txt', 'r');
@@ -94,6 +100,40 @@ async function countScratchCards() {
   console.log(countScratchCardsAfterWinnings(cards));
 }
 
+async function mapSeedLocations() {
+  const inputfile = await open('input/5-seed-fertiliser.txt');
+  const [seedsSerialised, ...mappingsSerialised] = (
+    await inputfile.readFile('utf8')
+  ).split('\n\n');
+  const seeds = parseSeedsList(seedsSerialised);
+  const mappings = mappingsSerialised.map(serialised =>
+    parseMapping(serialised),
+  );
+
+  let minLocation = Infinity;
+  for (const location of applyAllMappings(seeds, mappings)) {
+    minLocation = Math.min(location, minLocation);
+  }
+  console.log(minLocation);
+}
+
+async function mapSeedLocationsWithRanges() {
+  const inputFile = await open('input/5-seed-fertiliser.txt');
+  const [seedsSerialised, ...mappingsSerialised] = (
+    await inputFile.readFile('utf8')
+  ).split('\n\n');
+  const seeds = parseSeedsRanges(seedsSerialised);
+  const mappings = mappingsSerialised.map(serialised =>
+    parseMapping(serialised),
+  );
+
+  let minLocation = Infinity;
+  for (const location of applyAllMappings(seeds, mappings)) {
+    minLocation = Math.min(location, minLocation);
+  }
+  console.log(minLocation);
+}
+
 const puzzleKey = process.argv[2];
 
 const puzzleMap: Record<string, () => Promise<void>> = {
@@ -104,6 +144,8 @@ const puzzleMap: Record<string, () => Promise<void>> = {
   '3.2': gearRatios,
   '4.1': scratchCardScores,
   '4.2': countScratchCards,
+  '5.1': mapSeedLocations,
+  '5.2': mapSeedLocationsWithRanges,
 };
 
 const puzzle = puzzleMap[puzzleKey];
