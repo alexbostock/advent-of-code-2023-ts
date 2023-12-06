@@ -1,18 +1,16 @@
-import { open } from 'fs/promises';
+import { type FileHandle } from 'fs/promises';
 
 export interface Race {
   time: number;
   distanceRecord: number;
 }
 
-export async function part1() {
-  const inputFile = await open('input/6-wait-for-it.txt');
+export async function part1(inputFile: FileHandle) {
   const inputData = await inputFile.readFile('utf8');
   console.log(part1Answer(inputData));
 }
 
-export async function part2() {
-  const inputFile = await open('input/6-wait-for-it.txt');
+export async function part2(inputFile: FileHandle) {
   const inputData = await inputFile.readFile('utf8');
   console.log(part2Answer(inputData));
 }

@@ -1,13 +1,11 @@
-import { open } from 'node:fs/promises';
+import { type FileHandle } from 'node:fs/promises';
 
 interface CardHolding {
   card: string;
   numHeld: number;
 }
 
-export async function part1() {
-  const inputFile = await open('input/4-scratchcards.txt');
-
+export async function part1(inputFile: FileHandle) {
   let sum = 0;
 
   for await (const line of inputFile.readLines()) {
@@ -17,8 +15,7 @@ export async function part1() {
   console.log(sum);
 }
 
-export async function part2() {
-  const inputFile = await open('input/4-scratchcards.txt');
+export async function part2(inputFile: FileHandle) {
   const cardsSerialised = await inputFile.readFile('utf8');
   const cards = cardsSerialised.split('\n').filter(line => line !== '');
 

@@ -1,4 +1,4 @@
-import { open } from 'node:fs/promises';
+import { type FileHandle } from 'node:fs/promises';
 
 export type Mapping = {
   destinationRangeStart: number;
@@ -6,10 +6,9 @@ export type Mapping = {
   rangeLength: number;
 }[];
 
-export async function part1() {
-  const inputfile = await open('input/5-seed-fertiliser.txt');
+export async function part1(inputFile: FileHandle) {
   const [seedsSerialised, ...mappingsSerialised] = (
-    await inputfile.readFile('utf8')
+    await inputFile.readFile('utf8')
   ).split('\n\n');
   const seeds = parseSeedsList(seedsSerialised);
   const mappings = mappingsSerialised.map(serialised =>
@@ -23,8 +22,7 @@ export async function part1() {
   console.log(minLocation);
 }
 
-export async function part2() {
-  const inputFile = await open('input/5-seed-fertiliser.txt');
+export async function part2(inputFile: FileHandle) {
   const [seedsSerialised, ...mappingsSerialised] = (
     await inputFile.readFile('utf8')
   ).split('\n\n');

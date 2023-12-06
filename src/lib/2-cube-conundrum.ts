@@ -1,4 +1,4 @@
-import { open } from 'node:fs/promises';
+import { type FileHandle } from 'node:fs/promises';
 
 export interface SetOfCubes {
   red: number;
@@ -6,9 +6,7 @@ export interface SetOfCubes {
   blue: number;
 }
 
-export async function part1() {
-  const inputFile = await open('input/2-cube-conundrum.txt');
-
+export async function part1(inputFile: FileHandle) {
   let sum = 0;
 
   for await (const line of inputFile.readLines()) {
@@ -20,9 +18,7 @@ export async function part1() {
   console.log(sum);
 }
 
-export async function part2() {
-  const inputFile = await open('input/2-cube-conundrum.txt');
-
+export async function part2(inputFile: FileHandle) {
   let sum = 0;
 
   for await (const line of inputFile.readLines()) {

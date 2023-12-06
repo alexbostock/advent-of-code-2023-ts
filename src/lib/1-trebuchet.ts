@@ -1,8 +1,16 @@
-import { open } from 'node:fs/promises';
+import { type FileHandle } from 'node:fs/promises';
 
-export async function part2() {
-  const inputFile = await open('input/1-trebuchet.txt', 'r');
+export async function part1(inputFile: FileHandle) {
+  let sum = 0;
 
+  for await (const line of inputFile.readLines()) {
+    sum += getCalibrationValuePart1(line);
+  }
+
+  console.log(sum);
+}
+
+export async function part2(inputFile: FileHandle) {
   let sum = 0;
 
   for await (const line of inputFile.readLines()) {
@@ -13,6 +21,20 @@ export async function part2() {
 }
 
 const digitRe = /[0-9]|one|two|three|four|five|six|seven|eight|nine/g;
+
+export function getCalibrationValuePart1(line: string): number {
+  const digits = line
+    .split('')
+    .filter(char =>
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(char),
+    );
+  const firstDigit = digits.at(0);
+  const lastDigit = digits.at(-1);
+  if (!firstDigit || !lastDigit) {
+    throw new Error('No digits');
+  }
+  return parseInt(firstDigit + lastDigit);
+}
 
 export function getCalibrationValue(line: string): number {
   return parseInt(findFirstMatch(line) + findLastMatch(line));
