@@ -15,6 +15,10 @@ import {
   part1 as seedFertiliserPart1,
   part2 as seedFertiliserPart2,
 } from './lib/5-seed-fertiliser.js';
+import {
+  part1 as waitForItPart1,
+  part2 as waitForItPart2,
+} from './lib/6-wait-for-it.js';
 
 const puzzleKey = process.argv[2];
 
@@ -28,6 +32,8 @@ const puzzleMap: Record<string, () => Promise<void>> = {
   '4.2': scratchCardsPart2,
   '5.1': seedFertiliserPart1,
   '5.2': seedFertiliserPart2,
+  '6.1': waitForItPart1,
+  '6.2': waitForItPart2,
 };
 
 const puzzle = puzzleMap[puzzleKey];
