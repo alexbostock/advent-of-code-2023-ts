@@ -5,8 +5,9 @@ import * as day3 from './lib/3-gear-ratios.js';
 import * as day4 from './lib/4-scratchcards.js';
 import * as day5 from './lib/5-seed-fertiliser.js';
 import * as day6 from './lib/6-wait-for-it.js';
+import * as day7 from './lib/7-camel-cards.js';
 
-const puzzles = [day1, day2, day3, day4, day5, day6];
+const puzzles = [day1, day2, day3, day4, day5, day6, day7];
 
 const puzzleKey = process.argv[2];
 const [puzzleNum, partNum] = puzzleKey.split('.');
