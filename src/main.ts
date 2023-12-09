@@ -6,8 +6,9 @@ import * as day4 from './lib/4-scratchcards.js';
 import * as day5 from './lib/5-seed-fertiliser.js';
 import * as day6 from './lib/6-wait-for-it.js';
 import * as day7 from './lib/7-camel-cards.js';
+import * as day8 from './lib/8-haunted-wasteland.js';
 
-const puzzles = [day1, day2, day3, day4, day5, day6, day7];
+const puzzles = [day1, day2, day3, day4, day5, day6, day7, day8];
 
 const puzzleKey = process.argv[2];
 const [puzzleNum, partNum] = puzzleKey.split('.');
