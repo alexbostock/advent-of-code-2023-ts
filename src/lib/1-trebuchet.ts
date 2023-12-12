@@ -1,23 +1,17 @@
-import { type FileHandle } from 'node:fs/promises';
-
-export async function part1(inputFile: FileHandle) {
+export function part1(input: string) {
   let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
+  for (const line of input.split('\n').slice(0, -1)) {
     sum += getCalibrationValuePart1(line);
   }
-
-  console.log(sum);
+  return sum;
 }
 
-export async function part2(inputFile: FileHandle) {
+export function part2(input: string) {
   let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
+  for (const line of input.split('\n').slice(0, -1)) {
     sum += getCalibrationValue(line);
   }
-
-  console.log(sum);
+  return sum;
 }
 
 const digitRe = /[0-9]|one|two|three|four|five|six|seven|eight|nine/g;

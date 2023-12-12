@@ -1,25 +1,20 @@
-import { type FileHandle } from 'node:fs/promises';
-
 interface CardHolding {
   card: string;
   numHeld: number;
 }
 
-export async function part1(inputFile: FileHandle) {
+export function part1(input: string) {
   let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
+  for (const line of input.split('\n').slice(0, -1)) {
     sum += scoreScratchCard(line);
   }
-
-  console.log(sum);
+  return sum;
 }
 
-export async function part2(inputFile: FileHandle) {
-  const cardsSerialised = await inputFile.readFile('utf8');
+export function part2(cardsSerialised: string) {
   const cards = cardsSerialised.split('\n').filter(line => line !== '');
 
-  console.log(countScratchCardsAfterWinnings(cards));
+  return countScratchCardsAfterWinnings(cards);
 }
 
 export function countScratchCardsAfterWinnings(cards: string[]): number {

@@ -2,15 +2,15 @@ import { describe, expect, test } from 'vitest';
 import {
   numPossibleArrangements,
   parseAndTrimLine,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   preprocessLinePart2,
   type Springs,
 } from '../src/lib/12-hot-springs.js';
 
-test('part1', () => expect(part1Impl(exampleInput)).toEqual(21));
+test('part1', () => expect(part1(exampleInput)).toEqual(21));
 
-test('part2', () => expect(part2Impl(exampleInput)).toEqual(525152));
+test('part2', () => expect(part2(exampleInput)).toEqual(525152));
 
 describe('numPossibleArrangements', () => {
   const testCases: [string, number][] = [

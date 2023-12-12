@@ -1,5 +1,3 @@
-import { type FileHandle } from 'fs/promises';
-
 const orderedHandTypes = [
   'high-card',
   'one-pair',
@@ -27,19 +25,7 @@ const orderedCardValues = [
   'A',
 ];
 
-export async function part1(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part1Impl(input));
-}
-
-export async function part2(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part2Impl(input));
-}
-
-export function part1Impl(input: string) {
+export function part1(input: string) {
   const hands = input
     .split('\n')
     .filter(val => val !== '')
@@ -51,7 +37,7 @@ export function part1Impl(input: string) {
   return hands.reduce((score, { bid }, index) => score + bid * (index + 1), 0);
 }
 
-export function part2Impl(input: string) {
+export function part2(input: string) {
   const hands = input
     .split('\n')
     .filter(val => val !== '')

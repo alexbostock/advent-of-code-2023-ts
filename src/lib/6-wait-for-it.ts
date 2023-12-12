@@ -1,28 +1,16 @@
-import { type FileHandle } from 'fs/promises';
-
 export interface Race {
   time: number;
   distanceRecord: number;
 }
 
-export async function part1(inputFile: FileHandle) {
-  const inputData = await inputFile.readFile('utf8');
-  console.log(part1Answer(inputData));
-}
-
-export async function part2(inputFile: FileHandle) {
-  const inputData = await inputFile.readFile('utf8');
-  console.log(part2Answer(inputData));
-}
-
-export function part1Answer(input: string): number {
+export function part1(input: string): number {
   const races = parseRaces(input);
   return races
     .map(race => waystoWin(race).length)
     .reduce((prod, num) => prod * num);
 }
 
-export function part2Answer(input: string): number {
+export function part2(input: string): number {
   const race = parseRacePart2(input);
   return waystoWin(race).length;
 }

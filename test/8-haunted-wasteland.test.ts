@@ -1,18 +1,18 @@
 import { describe, expect, test } from 'vitest';
 import {
   parseInput,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   type WastelandMap,
 } from '../src/lib/8-haunted-wasteland.js';
 
-describe('part1Impl', () => {
-  test('example 1', () => expect(part1Impl(exampleInput1)).toBe(2));
+describe('part1', () => {
+  test('example 1', () => expect(part1(exampleInput1)).toBe(2));
 
-  test('example2', () => expect(part1Impl(exampleInput2)).toBe(6));
+  test('example2', () => expect(part1(exampleInput2)).toBe(6));
 });
 
-test('part2Impl', () => expect(part2Impl(exampleInputPart2)).toBe(6));
+test('part2', () => expect(part2(exampleInputPart2)).toBe(6));
 
 describe('parseInput', () => {
   test('example 1', () => {

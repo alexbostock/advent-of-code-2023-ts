@@ -1,33 +1,27 @@
-import { type FileHandle } from 'node:fs/promises';
-
 export interface SetOfCubes {
   red: number;
   green: number;
   blue: number;
 }
 
-export async function part1(inputFile: FileHandle) {
+export function part1(input: string) {
   let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
+  for (const line of input.split('\n').slice(0, -1)) {
     if (isPossible(line, { red: 12, green: 13, blue: 14 })) {
       sum += gameId(line);
     }
   }
-
-  console.log(sum);
+  return sum;
 }
 
-export async function part2(inputFile: FileHandle) {
+export function part2(input: string) {
   let sum = 0;
-
-  for await (const line of inputFile.readLines()) {
+  for (const line of input.split('\n').slice(0, -1)) {
     const game = parseGame(line);
     const minimumCubes = minimumSetOfCubes(game);
     sum += minimumCubes.red * minimumCubes.green * minimumCubes.blue;
   }
-
-  console.log(sum);
+  return sum;
 }
 
 export function isPossible(serialisedGame: string, availableCubes: SetOfCubes) {

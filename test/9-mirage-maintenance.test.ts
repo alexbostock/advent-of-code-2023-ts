@@ -2,14 +2,14 @@ import { describe, expect, test } from 'vitest';
 import {
   nextInSequence,
   parseInput,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   previousInSequence,
 } from '../src/lib/9-mirage-maintenance.js';
 
-test('part1', () => expect(part1Impl(exampleInput)).toBe(114));
+test('part1', () => expect(part1(exampleInput)).toBe(114));
 
-test('part2', () => expect(part2Impl(exampleInput)).toBe(2));
+test('part2', () => expect(part2(exampleInput)).toBe(2));
 
 test('parseInput', () => {
   const sequences = parseInput(exampleInput);

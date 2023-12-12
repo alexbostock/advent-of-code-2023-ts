@@ -2,13 +2,13 @@ import { describe, expect, test } from 'vitest';
 import {
   hasLoop,
   parseMaze,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   solveMaze,
   type Maze,
 } from '../src/lib/10-pipe-maze.js';
 
-test('part1', () => expect(part1Impl(exampleInput)).toBe(4));
+test('part1', () => expect(part1(exampleInput)).toBe(4));
 
 describe('part2', () => {
   const testCases: [string, number][] = [
@@ -73,7 +73,7 @@ L7JLJL-JLJLJL--JLJ.L`,
   ];
 
   test.each(testCases)('%#. %j => %i', (input, expected) =>
-    expect(part2Impl(input)).toBe(expected),
+    expect(part2(input)).toBe(expected),
   );
 });
 

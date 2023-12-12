@@ -1,5 +1,3 @@
-import { type FileHandle } from 'fs/promises';
-
 export interface Coords {
   x: number;
   y: number;
@@ -10,19 +8,7 @@ export interface Jumps {
   yJumps: number[];
 }
 
-export async function part1(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part1Impl(input));
-}
-
-export async function part2(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part2Impl(input));
-}
-
-export function part1Impl(input: string): number {
+export function part1(input: string): number {
   const expanded = expandCosmos(input);
   const galaxies = findGalaxies(expanded);
 
@@ -35,7 +21,7 @@ export function part1Impl(input: string): number {
   return sumOfDistances;
 }
 
-export function part2Impl(cosmos: string, expansionFactor = 1000000): number {
+export function part2(cosmos: string, expansionFactor = 1000000): number {
   const jumps = expansionJumps(cosmos);
   const galaxies = findGalaxies(cosmos);
 

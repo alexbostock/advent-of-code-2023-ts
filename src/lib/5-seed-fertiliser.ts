@@ -1,15 +1,11 @@
-import { type FileHandle } from 'node:fs/promises';
-
 export type Mapping = {
   destinationRangeStart: number;
   sourceRangeStart: number;
   rangeLength: number;
 }[];
 
-export async function part1(inputFile: FileHandle) {
-  const [seedsSerialised, ...mappingsSerialised] = (
-    await inputFile.readFile('utf8')
-  ).split('\n\n');
+export function part1(input: string) {
+  const [seedsSerialised, ...mappingsSerialised] = input.split('\n\n');
   const seeds = parseSeedsList(seedsSerialised);
   const mappings = mappingsSerialised.map(serialised =>
     parseMapping(serialised),
@@ -19,13 +15,11 @@ export async function part1(inputFile: FileHandle) {
   for (const location of applyAllMappings(seeds, mappings)) {
     minLocation = Math.min(location, minLocation);
   }
-  console.log(minLocation);
+  return minLocation;
 }
 
-export async function part2(inputFile: FileHandle) {
-  const [seedsSerialised, ...mappingsSerialised] = (
-    await inputFile.readFile('utf8')
-  ).split('\n\n');
+export function part2(input: string) {
+  const [seedsSerialised, ...mappingsSerialised] = input.split('\n\n');
   const seeds = parseSeedsRanges(seedsSerialised);
   const mappings = mappingsSerialised.map(serialised =>
     parseMapping(serialised),
@@ -35,7 +29,7 @@ export async function part2(inputFile: FileHandle) {
   for (const location of applyAllMappings(seeds, mappings)) {
     minLocation = Math.min(location, minLocation);
   }
-  console.log(minLocation);
+  return minLocation;
 }
 
 export function* applyAllMappings(

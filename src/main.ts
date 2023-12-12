@@ -30,13 +30,15 @@ const puzzles = [
 const puzzleKey = process.argv[2];
 const [puzzleNum, partNum] = puzzleKey.split('.');
 
-const input = await open(`input/${puzzleNum}.txt`);
+const inputFile = await open(`input/${puzzleNum}.txt`);
+const input = await inputFile.readFile('utf8');
+await inputFile.close();
 
 const puzzle = puzzles[parseInt(puzzleNum) - 1];
-const puzzlePart = partNum === '1' ? puzzle.part1 : puzzle.part2;
-
 if (!puzzle) {
   throw new Error(`Cannot find puzzle ${puzzleKey}`);
 }
 
-await puzzlePart(input);
+const puzzlePart = partNum === '1' ? puzzle.part1 : puzzle.part2;
+
+console.log(puzzlePart(input));

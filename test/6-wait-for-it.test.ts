@@ -3,18 +3,18 @@ import {
   distanceTravelled,
   parseRacePart2,
   parseRaces,
-  part1Answer,
-  part2Answer,
+  part1,
+  part2,
   waystoWin,
   type Race,
 } from '../src/lib/6-wait-for-it.js';
 
-test('part1Answer', () => {
-  expect(part1Answer(exampleInput)).toBe(288);
+test('part1', () => {
+  expect(part1(exampleInput)).toBe(288);
 });
 
-test('part2Answer', () => {
-  expect(part2Answer(exampleInput)).toBe(71503);
+test('part2', () => {
+  expect(part2(exampleInput)).toBe(71503);
 });
 
 test('parseRaces', () => {

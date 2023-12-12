@@ -2,14 +2,14 @@ import { describe, expect, test } from 'vitest';
 import {
   compareHands,
   handTypeWithJokers,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   type HandType,
 } from '../src/lib/7-camel-cards.js';
 
-test('part1Impl', () => expect(part1Impl(exampleInput)).toBe(6440));
+test('part1', () => expect(part1(exampleInput)).toBe(6440));
 
-test('part2Impl', () => expect(part2Impl(exampleInput)).toBe(5905));
+test('part2', () => expect(part2(exampleInput)).toBe(5905));
 
 describe('compareHands', () => {
   const testCases: [[hand1: string, hand2: string], sortOrder: number][] = [

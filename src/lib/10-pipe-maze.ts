@@ -1,5 +1,3 @@
-import { type FileHandle } from 'fs/promises';
-
 const pipeSquares: MazeSquare[] = ['|', '-', 'L', 'J', '7', 'F'];
 
 export type MazeSquare = '|' | '-' | 'L' | 'J' | '7' | 'F' | '.';
@@ -14,23 +12,11 @@ interface Coords {
   y: number;
 }
 
-export async function part1(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part1Impl(input));
-}
-
-export async function part2(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part2Impl(input));
-}
-
-export function part1Impl(input: string): number {
+export function part1(input: string): number {
   return solveMaze(parseMaze(input)).size / 2;
 }
 
-export function part2Impl(input: string): number {
+export function part2(input: string): number {
   const maze = parseMaze(input);
   const positionsInPath = solveMaze(maze);
   const positionsOutsideGrid = traverseOutside(maze, positionsInPath);

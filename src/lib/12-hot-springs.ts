@@ -1,23 +1,9 @@
-import { type FileHandle } from 'fs/promises';
-
 export interface Springs {
   springs: ('?' | '.' | '#')[];
   contiguousGroups: number[];
 }
 
-export async function part1(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part1Impl(input));
-}
-
-export async function part2(inputFile: FileHandle) {
-  const input = await inputFile.readFile('utf8');
-  await inputFile.close();
-  console.log(part2Impl(input));
-}
-
-export function part1Impl(input: string): number {
+export function part1(input: string): number {
   return input
     .split('\n')
     .slice(0, -1)
@@ -25,7 +11,7 @@ export function part1Impl(input: string): number {
     .reduce((sum, num) => sum + num);
 }
 
-export function part2Impl(input: string): number {
+export function part2(input: string): number {
   return input
     .split('\n')
     .slice(0, -1)

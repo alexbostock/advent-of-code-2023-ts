@@ -4,17 +4,17 @@ import {
   expandCosmos,
   expansionJumps,
   findGalaxies,
-  part1Impl,
-  part2Impl,
+  part1,
+  part2,
   type Coords,
   type Jumps,
 } from '../src/lib/11-cosmic-expansion.js';
 
-test('part1', () => expect(part1Impl(exampleInput)).toBe(374));
+test('part1', () => expect(part1(exampleInput)).toBe(374));
 
-test('part2 (10)', () => expect(part2Impl(exampleInput, 10)).toBe(1030));
+test('part2 (10)', () => expect(part2(exampleInput, 10)).toBe(1030));
 
-test('part2 (100)', () => expect(part2Impl(exampleInput, 100)).toBe(8410));
+test('part2 (100)', () => expect(part2(exampleInput, 100)).toBe(8410));
 
 test('expandCosmos', () => {
   const expanded = expandCosmos(exampleInput);
