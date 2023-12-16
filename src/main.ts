@@ -3,6 +3,7 @@ import * as day1 from './lib/1-trebuchet.js';
 import * as day10 from './lib/10-pipe-maze.js';
 import * as day11 from './lib/11-cosmic-expansion.js';
 import * as day12 from './lib/12-hot-springs.js';
+import * as day13 from './lib/13-point-of-incidence.js';
 import * as day2 from './lib/2-cube-conundrum.js';
 import * as day3 from './lib/3-gear-ratios.js';
 import * as day4 from './lib/4-scratchcards.js';
@@ -25,6 +26,7 @@ const puzzles = [
   day10,
   day11,
   day12,
+  day13,
 ];
 
 const puzzleKey = process.argv[2];
